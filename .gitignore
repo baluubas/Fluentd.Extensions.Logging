@@ -1,0 +1,21 @@
+**/artifacts/
+# NuGet Packages
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+**/.vs/*
+**/node_modules/*
+
+build/**
+
+**/bin/**
+**/obj/**
+
+project.lock.json
