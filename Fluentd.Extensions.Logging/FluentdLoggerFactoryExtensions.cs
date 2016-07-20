@@ -1,13 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
+using Microsoft.Extensions.Configuration;
 
 namespace Fluentd.Extensions.Logging
 {
 	public static class FluentdLoggerFactoryExtensions
 	{
-		/// <summary>
-		/// Add fluentd to the logging pipeline.
-		/// </summary>
 		public static ILoggerFactory AddFluentd(
 			this ILoggerFactory factory,
 			Func<string, LogLevel, bool> filter,
@@ -18,9 +16,6 @@ namespace Fluentd.Extensions.Logging
 			return factory;
 		}
 
-		/// <summary>
-		/// Add fluentd to the logging pipeline.
-		/// </summary>
 		public static ILoggerFactory AddFluentd(
 			this ILoggerFactory factory,
 			LogLevel logLevel)
@@ -31,9 +26,6 @@ namespace Fluentd.Extensions.Logging
 				new FluentdOptions());
 		}
 
-		/// <summary>
-		/// Add fluentd to the logging pipeline.
-		/// </summary>
 		public static ILoggerFactory AddFluentd(
 			this ILoggerFactory factory,
 			LogLevel logLevel,
@@ -43,6 +35,26 @@ namespace Fluentd.Extensions.Logging
 				factory,
 				(_, level) => level >= logLevel,
 				options);
+		}
+
+		public static ILoggerFactory AddFluentd(
+			this ILoggerFactory factory,
+			IConfiguration configuration,
+			FluentdOptions options)
+		{
+			if (factory == null) throw new ArgumentNullException(nameof(factory));
+			factory.AddProvider(new FluentdLoggerProvider(new ConfigurationLoggerSwitches(configuration), options));
+			return factory;
+		}
+
+		public static ILoggerFactory AddFluentd(
+			this ILoggerFactory factory,
+			ILoggerSwitches swithes,
+			FluentdOptions options)
+		{
+			if (factory == null) throw new ArgumentNullException(nameof(factory));
+			factory.AddProvider(new FluentdLoggerProvider(swithes, options));
+			return factory;
 		}
 	}
 }
