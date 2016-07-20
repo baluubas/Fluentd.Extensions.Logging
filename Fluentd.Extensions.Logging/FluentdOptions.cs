@@ -14,8 +14,10 @@ namespace Fluentd.Extensions.Logging
 		public bool NoDelay { get; set; } = false;
 		public TimeSpan LingerTime { get; set; } = TimeSpan.FromMilliseconds(1000);
 		public bool EmitStackTraceWhenAvailable { get; set; } = false;
+		public int MaxSendQueue { get; set; } = 500;
 
 		public string Tag { get; set; } = "aspnetcore";
-		public int MaxSendQueue { get; set; } = 500;
+		public string AppInstanceName { get; set; } = "";
+		public string ServerName { get; set; } = "";
 	}
 }

@@ -109,6 +109,17 @@ namespace Fluentd.Extensions.Logging
 			{
 				record.Add("stacktrace", exception.StackTrace);
 			}
+
+			if (!string.IsNullOrEmpty(_options.ServerName))
+			{
+				record.Add("server_name", _options.ServerName);
+			}
+
+			if (!string.IsNullOrEmpty(_options.AppInstanceName))
+			{
+				record.Add("instance_name", _options.AppInstanceName);
+			}
+
 			return record;
 		}
 
